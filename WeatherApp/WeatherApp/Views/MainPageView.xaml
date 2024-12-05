@@ -62,10 +62,11 @@
             <Label x:Name="CityAndCountryLabel"
                    Text="{Binding CityName}"
                    FontSize="20"
-                   HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    TextColor="#E96E50" 
                    Margin="-30, 0, 0, 0"
+                   LineBreakMode="WordWrap"
             />
 
         </FlexLayout>

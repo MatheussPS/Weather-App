@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WeatherApp.Models;
@@ -11,7 +8,7 @@ using WeatherApp.Service;
 
 namespace WeatherApp.ViewModels
 {
-    public partial class MainPageViewModel: ObservableObject
+    public partial class MainPageViewModel : ObservableObject
     {
         [ObservableProperty]
         public string city;
@@ -56,12 +53,12 @@ namespace WeatherApp.ViewModels
 
         public ICommand GetWeatherCommand { get; set; }
 
-            public MainPageViewModel()
-            {
-                GetWeatherCommand = new Command(async () => await GetWeather());
+        public MainPageViewModel()
+        {
+            GetWeatherCommand = new Command(async () => await GetWeather());
 
-                SetInformacaoes();
-            }
+            SetInformacaoes(); // Configura as informações iniciais
+        }
 
         public void SetInformacaoes()
         {
@@ -81,55 +78,55 @@ namespace WeatherApp.ViewModels
 
         public async Task GetWeather()
         {
-            
-                Debug.WriteLine(city);
-                WeatherAPI weatherAPI = await service.GetWeatherResponse(city);
-            
-                if (weatherAPI == null)
+            try
+            {
+                if (string.IsNullOrEmpty(City) || City.Length == 1)
                 {
                     SetInformacaoes();
-                    CityName = $"{city} não encontrada";
+                    CityName = "Cidade inválida";
+                    return;
+                }
+
+                WeatherAPI weatherAPI = await service.GetWeatherResponse(City);
+
+                if (weatherAPI == null || weatherAPI.Weather == null || weatherAPI.MainWheater == null || weatherAPI.Wind == null ||
+                    string.IsNullOrWhiteSpace(weatherAPI.Name) || weatherAPI.Name.Trim().ToLower() != City.Trim().ToLower())
+                {
+                    SetInformacaoes();
+                    CityName = $"{FirstCharToUpper(City)} \nnão encontrada";
                 }
                 else
                 {
                     AtualizaInformacoes(weatherAPI);
                 }
-                
-            
-            
-            
+
+            }
+            catch (Exception ex)
+            {
+                SetInformacaoes();
+                CityName = "Erro ao buscar clima";
+            }
         }
 
         public void AtualizaInformacoes(WeatherAPI weatherAPI)
         {
             CImage = $"{weatherAPI.Weather[0].MainWeather}.png";
-
-            CityName = $" {weatherAPI.Name},{weatherAPI.SysWeather.Country}";
-
-            Temperatura = $"Temperatura:  {weatherAPI.MainWheater.Temp}°C";
-
-            TemperaturaMinima = $"Temperatura Mínima:  {weatherAPI.MainWheater.TempMin}°C";
-
-            TemperaturaMaxima = $"Temperatura Máxima:  {weatherAPI.MainWheater.TempMax}°C";
-
-            Descricao = $"Descrição:  {weatherAPI.Weather[0].Description}";
-
-            Sensacao = $"Sensação Térmica:  {weatherAPI.MainWheater.FeelsLike}°C";
-
-            Vento = $"Vento:  {weatherAPI.Wind.Speed} km/h";
-
-            Umidade = $"Umidade:  {weatherAPI.MainWheater.Humidity}%";
-
-            Pais = $"País:  {weatherAPI.SysWeather.Country}";
-
-            Coordenadas = $"Coordenadas:  {weatherAPI.Coord.Lat}, {weatherAPI.Coord.Lon}";
-
-            WindVelocidade = $"Velocidade do Vento:  {weatherAPI.Wind.Speed} km/h";
-        
+            CityName = $"{weatherAPI.Name}, {weatherAPI.SysWeather.Country}";
+            Temperatura = $"Temperatura: {weatherAPI.MainWheater.Temp}°C";
+            TemperaturaMinima = $"Temperatura Mínima: {weatherAPI.MainWheater.TempMin}°C";
+            TemperaturaMaxima = $"Temperatura Máxima: {weatherAPI.MainWheater.TempMax}°C";
+            Descricao = $"Descrição: {FirstCharToUpper(weatherAPI.Weather[0].Description)}";
+            Sensacao = $"Sensação Térmica: {weatherAPI.MainWheater.FeelsLike}°C";
+            Vento = $"Vento: {weatherAPI.Wind.Speed} km/h";
+            Umidade = $"Umidade: {weatherAPI.MainWheater.Humidity}%";
+            Pais = $"País: {weatherAPI.SysWeather.Country}";
+            Coordenadas = $"Coordenadas: {weatherAPI.Coord.Lat}, {weatherAPI.Coord.Lon}";
+            WindVelocidade = $"Velocidade do Vento: {weatherAPI.Wind.Speed} km/h";
         }
 
-
+        public string FirstCharToUpper(string word)
+        {
+            return word.Length > 1 ? char.ToUpper(word[0]) + word.Substring(1) : word.ToUpper();
+        }
     }
-
-
 }

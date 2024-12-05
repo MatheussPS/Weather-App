@@ -10,8 +10,8 @@ namespace WeatherApp.Service
         private WeatherAPI weatherAPI;
         private JsonSerializerOptions jsonSerializerOptions;
         Uri uri = new Uri("http://api.openweathermap.org/data/2.5/weather?appid=");
-        String key = "8e68d299c4142af4b78cf79c7d7ca3ce";
-        String options = "lang=pt_br&units=metric";
+        public string key = "8e68d299c4142af4b78cf79c7d7ca3ce";
+        public string options = "lang=pt_br&units=metric";
 
         public WeatherAPIService() { 
             httpClient = new HttpClient();
@@ -26,7 +26,8 @@ namespace WeatherApp.Service
         {
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"http://api.openweathermap.org/data/2.5/weather?appid=8e68d299c4142af4b78cf79c7d7ca3ce&q={cityName}&lang=pt_br&units=metric");
+                string requestUrl = $"{uri}{key}&q={cityName}&{options}";
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
          
                 if (response.IsSuccessStatusCode)
                 {
