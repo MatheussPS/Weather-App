@@ -64,9 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\" />
-	  <Folder Include="Service\" />
-	  <Folder Include="Views\" />
+	  <MauiXaml Update="Views\MainPageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

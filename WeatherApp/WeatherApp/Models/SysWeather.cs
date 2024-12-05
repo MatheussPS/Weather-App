@@ -16,7 +16,7 @@ namespace WeatherApp.Models
         public int Type {  get; set; }
 
         [JsonPropertyName("country")]
-        public int Country { get; set; }
+        public String Country { get; set; }
 
         [JsonPropertyName("sunrise")]   
         public int Sunrise { get; set; }

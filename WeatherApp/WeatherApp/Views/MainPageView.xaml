@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.Views.MainPageView"
+             Title="MainPageView"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout
+        BackgroundColor="#dcdcdc"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        
+        >
+        <FlexLayout
+            Direction="Row"
+            AlignItems="Center"
+            JustifyContent="SpaceAround"
+            BackgroundColor="#48484A"
+            Padding="10"
+            HeightRequest="70">
+           
+            <Entry x:Name="CityEntry"
+                Text="{Binding City}"
+                WidthRequest="150"
+                Placeholder="Cidade:"
+                PlaceholderColor="#818181"
+                FontAttributes="Italic"
+                TextColor="#FFF"
+                Margin="10"
+            />
+
+                <Button
+                ImageSource="lupa.png"
+                Command="{Binding GetWeatherCommand}"
+                BackgroundColor="#48484A"
+                HeightRequest="35"
+                    Margin="-15,0,0,0"
+                ></Button>
+
+                <Image Source="openweather.png"              
+                   WidthRequest="200"
+                   HeightRequest="50"
+                   Margin="-8"
+                />
+            
+        </FlexLayout>
+
+
+
+        <FlexLayout Direction="Row"
+                
+                 HorizontalOptions="FillAndExpand"
+                 
+                Margin="0, 40, 0, 0"
+                  >
+
+            <Image Source="{Binding CImage}"
+                   WidthRequest="200"
+                   HeightRequest="50"
+                   Margin="0, 0, 0, 0"
+            />
+
+            <Label x:Name="CityAndCountryLabel"
+                   Text="{Binding CityName}"
+                   FontSize="20"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalTextAlignment="Center"
+                   TextColor="#E96E50" 
+                   Margin="-30, 0, 0, 0"
+            />
+
+        </FlexLayout>
+
+
+        <FlexLayout Direction="Row"
+                AlignItems="Start"
+                JustifyContent="Start"
+                Padding="10"
+                Margin="30, 40, 0, 0"
+>
+
+            <BoxView BackgroundColor="#E96E50"
+                     WidthRequest="2"
+                     HeightRequest="310"
+                     Margin="0, 0, 10, 0"/>
+
+            <StackLayout Spacing="10" HorizontalOptions="Start">
+                <Label Text="{Binding Temperatura}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding TemperaturaMinima}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding TemperaturaMaxima}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Descricao}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Sensacao}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Vento}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Umidade}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Pais}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding Coordenadas}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+                <Label Text="{Binding WindVelocidade}"
+                       FontSize="16"
+                       TextColor="#555" />
+
+            </StackLayout>
+        </FlexLayout>
+        <FlexLayout
+            Direction="Row"
+            AlignItems="Center"
+            JustifyContent="Center"
+          
+            BackgroundColor="#48484A"
+            Padding="30"
+            HeightRequest="150"
+            Margin="0,100, 0, 0">
+            <Label
+                FontSize="16"
+                TextColor="#d3d3d3"
+                Text="Made by Matheus Pinter.©️Todos os direitos reservados"
+                HorizontalTextAlignment="Center"
+                Margin="0,0,0,10"
+    VerticalTextAlignment="Center"
+                />
+            
+        </FlexLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

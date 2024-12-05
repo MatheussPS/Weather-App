@@ -32,6 +32,8 @@ namespace WeatherApp.Models
         [JsonPropertyName("base")]
         public string Base {  get; set; }
 
+        [JsonPropertyName("wind")]
+        public Wind Wind { get; set; }
 
         [JsonPropertyName("visibility")]
         public int Visibility { get; set; }

@@ -14,6 +14,6 @@ namespace WeatherApp.Models
         public double Lon { get;set; }
 
         [JsonPropertyName("lat")]
-        public double lat { get; set; }
+        public double Lat { get; set; }
     }
 }
